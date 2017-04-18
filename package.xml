@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package>
-  <name>UAV_demo</name>
+  <name>uav_demo</name>
   <version>0.0.0</version>
   <description>The UAV_demo package</description>
 
