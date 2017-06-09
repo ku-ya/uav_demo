@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+
 import time
 import rospy
 from uav_control.msg import trajectory
@@ -58,7 +58,7 @@ mode = {'spin':['a',15],
         'warmup':['w',0],
         'kill':['k',0],
         'point to point':['p',15],
-        'Est1':['b',15]
+        'Est1':['b',18]
         }
 
 mission =  {'mode':'init','t_mission':0,'motor':False,'warmup':False}
@@ -210,18 +210,24 @@ def mission_request():
         pass
 
     elif mission['mode'] == 'Est1':
+        print('Motor warmup ON')
+        motor_set(True,True)
+        rospy.sleep(4)
+        motor_set(True,False)
+        t_init = time.time()
         # TODO
         x0=np.array([0,0,0])
-        x1=np.array([1,0,1])
+        x1=np.array([0,0,1])
         x2=np.array([1,1,1.5])
         x3=np.array([0,1,1])
         x4=np.array([0,0,1.5])
         x5=np.array([1,1,1])
-        t1=1
-        dt2=2
-        dt3=3
+        t1=4
+        dt2=6
+        dt3=5
         dt4=4
-        dt5=5
+        dt5=3
+        t_total = 22
         while t_cur <= t_total and mission['mode'] == 'Est1':
             t_cur = time.time() - t_init
             time.sleep(dt)
