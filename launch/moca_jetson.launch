@@ -1,18 +1,17 @@
 <launch>
     <!-- Based on pysical (MOCA) or simulation (Gazebo) testing choose option -->
-    <group ns="Maya">
-      <include file="$(find uav_control)/launch/imu_odroid.launch"/>
+    <group ns="Jetson">
+      <include file="$(find uav_control)/launch/imu_jetson.launch"/>
       <arg name="MOCA" value="true"/>
       <rosparam>
           environment: 1
       </rosparam>
-      <rosparam file="$(find uav_demo)/params/odroid_params.yaml" />
+      <rosparam file="$(find uav_demo)/params/jetson_params.yaml" />
       <param name="simulation" type="bool" value="false"/>
       <arg name="paused" default="false"/>
       <arg name="gui" default="true"/>
       <arg name="debug" default="false"/>
       <arg name="verbose" default="true"/>
-
       <!-- start odroid node-->
       <node name="uav" type="node" pkg="uav_geometric_controller" respawn="false" output="screen">
       </node>

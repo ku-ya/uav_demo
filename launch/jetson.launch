@@ -1,7 +1,7 @@
 <launch>
   <!-- start odroid node-->
   <group ns="Jetson">
-  <node name="mission_odroid" type="mission_jetson.py" pkg="uav_control" respawn="false" output="screen">
+    <node name="mission_odroid" type="mission_jetson.py" pkg="uav_control" respawn="false" output="screen">
   </node>
   </group>
 </launch>
