@@ -10,10 +10,14 @@ On basestation computer
 3. Run mission window: ```roslaunch uav_demo odroid.launch```
 
 On uav computer
-1. ssh login: (host)```ssh <uav_name>```
-2. Run controller node: ```roslaunch uav_demo moca.launch```
+from host ssh login:```ssh <uav_name>```
+1. Run controller node: ```roslaunch uav_demo moca.launch```
 
-Common issues: Make sure ROS_MASTER_URI is set to base station
+
+Common issues: Make sure ROS_MASTER_URI is set to base station and also ROS_IP for the basestation
+- gain tuning ```rosrun rqt_reconfigure rqt_reconfigure```
+- plot ```rosrun rqt_plot rqt_plot```
+- Visualization ```rosrun rviz rviz```
 
 Missions:
 
