@@ -1,0 +1,7 @@
+<launch>
+  <!-- start odroid node-->
+  <group ns="Maya">
+  <node name="mission_odroid" type="mission.py" pkg="uav_control" respawn="false" output="screen">
+  </node>
+  </group>
+</launch>

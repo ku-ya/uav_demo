@@ -2,7 +2,7 @@ name:
     vicon: 'Jetson'
 port:
     i2c: [44,41,42,43]
-node:
+uav:
   Motor: 0
   MotorWarmup: 0
 controller:

@@ -1,8 +1,5 @@
 <launch>
-<!-- Based on pysical (MOCA) testing choose option -->
+    <!-- Based on pysical (MOCA) testing choose option -->
     <include file="$(find uav_demo)/launch/vicon.launch"/>
-    <node name="mission" type="mission.py" pkg="uav_control" respawn="false" output="screen" />
-    <!-- node name="key_cmd" type="key_direct.py" pkg="odroid" respawn="false" output="screen" / -->
-    <!-- node name="cmd_traj" type="trajectory_cmd.py" pkg="odroid" respawn="false" output="screen" / -->
     <!-- <node name="rviz" pkg="rviz" type="rviz" output="screen" /> -->
 </launch>
