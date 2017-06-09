@@ -19,7 +19,7 @@ Steps to run uav flight tests
 ## Common issues: 
 - Make sure ROS_MASTER_URI is set to base station and also ROS_IP for the basestation
 
-## ROS package
+## Useful ROS package
 
 - gain tuning ```rosrun rqt_reconfigure rqt_reconfigure```
 - plot ```rosrun rqt_plot rqt_plot```
