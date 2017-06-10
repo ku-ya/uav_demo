@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 import time
 import rospy
 from uav_control.msg import trajectory
