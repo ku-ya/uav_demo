@@ -4,7 +4,7 @@ import rospy
 from uav_control.msg import trajectory
 import pygame
 import sys
-#from trajectory_tracking_FOR_HADWARE import desired_pos, initialisation
+from trajectory_tracking_FOR_HADWARE import desired_pos, initialisation
 from geometry_msgs.msg import PoseStamped
 import numpy as np
 import pdb
@@ -122,16 +122,16 @@ def mission_request():
         mission['warmup'] = False
 
     elif mission['mode'] == 'reset':
-        rospy.set_param('/'+uav_name+'/uavWarmup', True)
+        rospy.set_param('/'+uav_name+'/uav/MotorWarmup', True)
         print('Motor warmup OFF')
-        rospy.set_param('/'+uav_name+'/uavWarmup', False)
+        rospy.set_param('/'+uav_name+'/uav/MotorWarmup', False)
         print('Motor warmup OFF')
         pub.publish(cmd)
 
     elif mission['mode'] == 'quit':
         print('terminating mission')
         rospy.set_param('/'+uav_name+'/uav', False)
-        rospy.set_param('/'+uav_name+'/uavWarmup', False)
+        rospy.set_param('/'+uav_name+'/uav/MotorWarmup', False)
         sys.exit()
 
     elif mission['mode'] == 'take off':
@@ -163,7 +163,7 @@ def mission_request():
             time.sleep(dt)
             cmd.header.stamp = rospy.get_rostime()
             height = z_hover - v_up*t_cur
-            cmd.xc = [x_v[0],x_v[1],height if height > z_min else 0]
+            cmd.xc = [x_v[0],x_v[1],height if height > z_min else z_min/2]
             cmd.xc_dot = [0,0,-v_up]
             pub.publish(cmd)
             cmd_tf_pub(cmd.xc)
