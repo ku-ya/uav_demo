@@ -13,7 +13,7 @@ import tf
 
 mission =  {'mode':'init','t_mission':0,'motor':False,'warmup':False}
 z_min = 0.35
-z_hover = 1.5
+z_hover = 1.2
 v_up = 0.3
 x_v = [0,0,0]
 x_ship = [0,0,0]
@@ -24,7 +24,7 @@ mode = {'spin':['a',15],
         'quit':['q',0],
         'reset':['r',3],
         'quit':['q',0],
-        'take off':['t',5],
+        'take off':['t',6],
         'land':['l',5],
         'hover':['h',0],
         'motor':['m',0],
@@ -141,7 +141,6 @@ def mission_request():
         motor_set(True,False)
         print('Taking off at {} sec'.format(time.time()-t_init))
         t_init = time.time()
-        t_total = 5
         t_cur= 0
         while t_cur <= t_total and mission['mode'] == 'take off':
             t_cur = time.time() - t_init
@@ -160,7 +159,7 @@ def mission_request():
     elif mission['mode'] == 'land':
         print('Landing')
         z_hover = x_v[2]
-        while t_cur <= t_total and mission['mode'] == 'land':
+        while mission['mode'] == 'land':
             t_cur = time.time() - t_init
             time.sleep(dt)
             cmd.header.stamp = rospy.get_rostime()
@@ -173,7 +172,7 @@ def mission_request():
             get_key()
             if x_v[2] < z_min:
                 motor_set(False, False)
-                break
+        motor_set(False,False)
         mission['mode'] = 'wait'
         print('landing complete')
 
