@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(uav_demo)
 
+## Compile as C++11, supported in ROS Kinetic and newer
+# add_compile_options(-std=c++11 -Wall)
+# set (CMAKE_EXE_LINKER_FLAGS "-lSDL2 -lGL -lGLEW" )
+set(CMAKE_CXX_FLAGS "-std=c++14 -g -O0 -Wall")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -8,6 +13,11 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+	sensor_msgs
+	tf2_ros
+	tf2_sensor_msgs
+	pcl_ros
+	pcl_conversions
 )
 
 ## System dependencies are found with CMake's conventions
@@ -128,16 +138,16 @@ include_directories(
 # add_dependencies(UAV_demo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
-# add_executable(UAV_demo_node src/UAV_demo_node.cpp)
+add_executable(sensor_conversion_node src/sensor_conversion.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
-# add_dependencies(UAV_demo_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+add_dependencies(sensor_conversion_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(UAV_demo_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(sensor_conversion_node
+  ${catkin_LIBRARIES}
+)
 
 #############
 ## Install ##
