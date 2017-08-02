@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
 	tf2_sensor_msgs
 	pcl_ros
 	pcl_conversions
+  laser_geometry
 )
 
 ## System dependencies are found with CMake's conventions
@@ -139,6 +140,7 @@ include_directories(
 
 ## Declare a C++ executable
 add_executable(sensor_conversion_node src/sensor_conversion.cpp)
+add_executable(laser2pcl src/laser2pcl.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -146,6 +148,9 @@ add_dependencies(sensor_conversion_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${ca
 
 ## Specify libraries to link a library or executable target against
 target_link_libraries(sensor_conversion_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(laser2pcl
   ${catkin_LIBRARIES}
 )
 
