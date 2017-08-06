@@ -1,0 +1,37 @@
+<launch>
+
+<!-- Converting Xtion PCL -->
+<node pkg="uav_demo" name="laser2pcl" type="laser2pcl" output="screen">
+
+  <!-- Topics -->
+  <param name="topic_in"  value="/scan"  />
+  <param name="topic_out" value="/cloud" />
+
+</node>
+
+
+<!-- Converting Xtion PCL -->
+<node pkg="uav_demo" name="sensor_conversion_node_1" type="sensor_conversion_node" output="screen">
+
+  <!-- Topics -->
+  <param name="topic_in"  value="/camera/depth_registered/points" />
+  <param name="topic_out" value="/depth_pcl"                      />
+
+  <!-- Desired Frame -->
+  <param name="frame_out" value="/world"                    />
+
+</node>
+
+<!-- Converting Hokuyo PCL -->
+<node pkg="uav_demo" name="sensor_conversion_node_2" type="sensor_conversion_node" output="screen">
+
+  <!-- Topics -->
+  <param name="topic_in"  value="/cloud"     />
+  <param name="topic_out" value="/depth_lsr" />
+
+  <!-- Desired Frame -->
+  <param name="frame_out" value="/world" />
+
+</node>
+
+</launch>

@@ -46,6 +46,7 @@
   <build_depend>pcl_ros</build_depend>
   <build_depend>pcl_conversions</build_depend>
   <build_depend>tf2_msgs</build_depend>
+  <build_depend>laser_geometry</build_depend>
   <build_depend>libpcl-all-dev</build_depend>
 
 
@@ -53,6 +54,7 @@
   <run_depend>rospy</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>libpcl-all</run_depend>
+  <run_depend>laser_geometry</run_depend>
 
 
   <!-- The export tag contains other, unspecified, tags -->
