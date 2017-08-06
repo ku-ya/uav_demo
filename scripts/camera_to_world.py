@@ -9,9 +9,11 @@ from sensor_msgs.msg import PointCloud2, PointField
 from roslib import message
 import pdb
 
+temp = PointCloud2()
 def callback_kinect(data) :
     # pick a height
     print(data.header)
+    temp = data
     # height =  int (data.height / 2)
     # pick x coords near front and center
     # middle_x = int (data.width / 2)
@@ -29,11 +31,13 @@ if __name__ == '__main__':
     rospy.Subscriber("camera/depth_registered/points", PointCloud2, callback_kinect)
 
     while not rospy.is_shutdown():
-        print('tf received')
+        # print('tf received')
         try:
             trans = tfBuffer.lookup_transform('camera_rgb_optical_frame','world', rospy.Time())
-            data_world = trans.transformPointCloud('world', data)
+            # tf_listener.waitForTransform('camera_rgb_optical_frame','world',rospy.Time(),rospy.Duration(1.0))
+            tf_listener.transformPointCloud('world', temp)
             # print(trans)
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException):
             continue
+        # tf_listener.transformPointCloud('world', data)
         rate.sleep()

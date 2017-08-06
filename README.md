@@ -38,4 +38,9 @@ This demo repository is for the simulation and hardware testing for the unmanned
 - Land
 - Point to ping
 - Hover
-- etc.
+  etc.
+
+
+### Hardware
+- Jetson
+- [Orbitty Carrier](http://connecttech.com/product/orbitty-carrier-for-nvidia-jetson-tx2-tx1/) [Manual](http://connecttech.com/product/orbitty-carrier-for-nvidia-jetson-tx2-tx1/)
