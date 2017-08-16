@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import time
 import rospy
-from uav_control.msg import trajectory
+from uav_geometric_controller.msg import trajectory
 import pygame
 import sys
 from trajectory_tracking_FOR_HADWARE import desired_pos, initialisation
