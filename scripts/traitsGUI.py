@@ -17,10 +17,12 @@ class CaptureThread(Thread):
             n_img += 1
             self.display.string = '%d image captured\n' % n_img \
                                                     + self.display.string
+
         self.display.string = 'Controller stopped\n' + self.display.string
 
 class Controller(HasTraits):
     mission = Enum('takeoff', 'land', 'p2p')
+
     start_stop_motor = Button()
     start_stop_flight = Button()
     display = Instance(TextDisplay)
@@ -52,6 +54,7 @@ class MainWindow(HasTraits):
         return Controller(display=self.display)
 
     view = View('display', 'controller', style="custom", resizable=True)
+
 
 
 if __name__ == '__main__':
