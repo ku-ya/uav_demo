@@ -17,7 +17,7 @@ z_hover = 1.2
 v_up = 0.3
 x_v = [0,0,0]
 x_ship = [0,0,0]
-uav_name = 'Maya'
+uav_name = 'Jetson'
 
 mode = {'spin':['a',15],
         'Simon':['s',0],
@@ -51,6 +51,12 @@ pub = rospy.Publisher('xc', trajectory, queue_size= 10)
 
 def cmd_tf_pub(xd):
     br.sendTransform(tuple(xd),tf.transformations.quaternion_from_euler(0,0,0),
+            rospy.Time.now(),
+            'UAV_des',
+            '/world')
+
+def cmd_b1d_tf_pub(xd, theta):
+    br.sendTransform(tuple(xd),tf.transformations.quaternion_from_euler(0, 0, theta),
             rospy.Time.now(),
             'UAV_des',
             '/world')
@@ -99,6 +105,7 @@ def get_key():
 
 def mission_request():
     global x_v
+    global z_hover
     get_key()
     dt = 0.01
     t_init = time.time()
@@ -185,9 +192,10 @@ def mission_request():
             cmd.header.stamp = rospy.get_rostime()
             theta = 2*np.pi/t_total*t_cur
             cmd.b1 = [np.cos(theta),np.sin(theta),0]
-            cmd.xc = [0,0,z_hover]
+            cmd.xc = [(np.cos(theta)-1.)/2.0, 1./2.0*np.sin(theta),z_hover]
             cmd.xc_dot = [0,0,0]
             pub.publish(cmd)
+            cmd_b1d_tf_pub(cmd.xc,theta)
             get_key()
             if x_v[2] < z_min:
                 rospy.set_param('/Maya/uav/Motor', False)
@@ -301,7 +309,7 @@ def mission_request():
 if __name__ == '__main__':
     try:
         rospy.init_node('command_station', anonymous=True)
-        uav_pose = rospy.Subscriber('/vicon/Maya/pose',PoseStamped, mocap_sub)
+        uav_pose = rospy.Subscriber('/vicon/Jetson/pose',PoseStamped, mocap_sub)
         #ship_pose = rospy.Subscriber('/vicon/ship/pose',PoseStamped, mocap_sub_ship)
         while True:
             mission_request()
