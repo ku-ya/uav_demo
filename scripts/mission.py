@@ -13,7 +13,7 @@ import tf
 
 mission =  {'mode':'init','t_mission':0,'motor':False,'warmup':False}
 z_min = 0.35
-z_hover = 1.2
+z_hover = 1.5
 v_up = 0.3
 x_v = [0,0,0]
 x_ship = [0,0,0]
@@ -154,7 +154,7 @@ def mission_request():
             time.sleep(dt)
             cmd.header.stamp = rospy.get_rostime()
             height = z_min+v_up*t_cur
-            cmd.xc = [x_v[0],x_v[1],height if height < 1.5 else 1.5 ]
+            cmd.xc = [x_v[0],x_v[1],height if height < z_hover else z_hover]
             print(cmd.xc)
             cmd.xc_dot = [0,0,v_up]
             cmd_tf_pub(cmd.xc)
