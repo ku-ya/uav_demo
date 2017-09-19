@@ -1,4 +1,5 @@
 <launch>
+<<<<<<< HEAD
 <!-- Based on pysical (MOCA) or simulation (Gazebo) testing choose option -->
 <group ns="Maya">
   <include file="$(find uav_control)/launch/imu_odroid.launch"/>
