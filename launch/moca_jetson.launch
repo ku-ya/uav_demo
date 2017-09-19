@@ -1,19 +1,24 @@
 <launch>
     <!-- Based on pysical (MOCA) or simulation (Gazebo) testing choose option -->
     <group ns="Jetson">
-      <include file="$(find uav_control)/launch/imu_jetson.launch"/>
       <arg name="MOCA" value="true"/>
       <rosparam>
-          environment: 1
+          environment: 0
       </rosparam>
-      <rosparam file="$(find uav_demo)/params/jetson_params.yaml" />
+
+      <!-- include file="$(find uav_control)/launch/imu_jetson.launch"/ -->
+      <rosparam file="$(find uav_geometric_controller)/params/jetson_controller.yaml" />
       <param name="simulation" type="bool" value="false"/>
       <arg name="paused" default="false"/>
       <arg name="gui" default="true"/>
       <arg name="debug" default="false"/>
       <arg name="verbose" default="true"/>
-      <!-- start odroid node-->
+      <!-- start estimator node-->
+      <node name="estimator" type="estimator.py" pkg="uav_geometric_controller" respawn="false" output="screen">
+      </node>
+      <!-- start controller node-->
       <node name="uav" type="node" pkg="uav_geometric_controller" respawn="false" output="screen">
+        <remap from="imu" to="imu_est"/>
       </node>
     </group>
 </launch>
