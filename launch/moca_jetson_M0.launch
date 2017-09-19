@@ -1,22 +1,25 @@
 <launch>
 <!-- Based on pysical (MOCA) or simulation (Gazebo) testing choose option -->
-<group ns="Maya">
-  <include file="$(find uav_control)/launch/imu_odroid.launch"/>
+<group ns="Jetson">
   <arg name="MOCA" value="true"/>
   <rosparam>
       environment: 1
   </rosparam>
-  <rosparam file="$(find uav_demo)/params/odroid_params.yaml" />
+  <rosparam file="$(find uav_demo)/params/jetson_params.yaml" />
   <param name="simulation" type="bool" value="false"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="true"/>
-  <node pkg="tf" type="static_transform_publisher" name="vicon_earth" args="0 0 0 0 0 3.1415 vicon earth 10" />
-
   <!-- start odroid node-->
   <node name="uav" type="node" pkg="uav_geometric_controller" respawn="false" output="screen">
   </node>
+
+  <arg name="razor_config_file" default="$(find razor_imu_9dof)/config/my_razor.yaml"/>
+  <node pkg="razor_imu_9dof" type="imu_node.py" name="imu_node" output="screen">
+    <rosparam file="$(arg razor_config_file)" command="load"/>
+  </node>
+
 </group>
   <!-- <node name="rviz" pkg="rviz" type="rviz" output="screen" /> -->
 </launch>
