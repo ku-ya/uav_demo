@@ -18,7 +18,6 @@
       </node>
       <!-- start controller node-->
       <node name="uav" type="node" pkg="uav_geometric_controller" respawn="false" output="screen">
-        <remap from="imu" to="imu_est"/>
       </node>
     </group>
 </launch>
